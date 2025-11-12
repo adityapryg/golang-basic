@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"sync"
+	"flag"
 )
 
 // User struct represents a user in the system
@@ -116,6 +117,11 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 
 // Main function
 func main() {
+	 // Command-line flags
+    port := flag.Int("port", 8080, "Server port")
+    host := flag.String("host", "localhost", "Server host")
+    flag.Parse()
+	
 	http.HandleFunc("/users", getUsers)
 	http.HandleFunc("/user", getUser)
 	http.HandleFunc("/user/create", createUser)
@@ -123,5 +129,7 @@ func main() {
 	http.HandleFunc("/user/delete", deleteUser)
 	
 	// Start the server
-	http.ListenAndServe(":8080", nil)
+	addr := fmt.Sprintf("%s:%d", *host, *port)
+    fmt.Printf("Running on http://%s\n", addr)
+    log.Fatal(http.ListenAndServe(addr, nil))
 }
