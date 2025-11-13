@@ -28,32 +28,7 @@ Repository ini berisi materi pembelajaran Golang Backend sesuai dengan rencana p
 - [17-jwt-auth](./17-jwt-auth) - generate token dan Autentikasi JWT
 - [18-testing-docs](./18-testing-docs) - Best practice Testing di go dan Dokumentasi
 - [19-swaggo](./18-swaggo) - Dokumentasi API
-- [20-mini-project](./20-mini-project) - Mini Project Menggabungkan semua yang dipelajari, Todolist REST API Golang
-  the mini project plan
-  plan a full implementation golang todo rest api with tech stack
-- gorm pgsql
-- jwt auth
-- go gin http
-
-the endpoint api
-
-- users (management user and auth)
-- todo ( crud todo)
-- health ( system check health)
-
-the must concern
-
-- middleware
-- validation
-- error handling and response format json api spec
-- swaggo docs for swagger
-- docker deployment
-
-testing
-
-- testing auth
-- testing user management
-- testing todo management
+- [20-mini-project](./20-mini-project) - Mini Project Menggabungkan semua yang dipelajari, REST API Todolist GO (gogin, jwt auth, gorm)
 
 ## Cara Menggunakan
 
