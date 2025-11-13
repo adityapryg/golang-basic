@@ -217,3 +217,4 @@ func demonstrasiConstructor() {
 	fmt.Printf("IPK: %.2f\n", mhs2.IPK)
 
 	fmt.Println()
+}
