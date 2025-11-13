@@ -12,23 +12,53 @@ Repository ini berisi materi pembelajaran Golang Backend sesuai dengan rencana p
 - [04-control-flow](./04-control-flow) - Percabangan dan Perulangan
 - [05-data-structures](./05-data-structures) - Array, Slice, dan Map
 - [06-functions-structs](./06-functions-structs) - Fungsi dan Struct
-- [07-cli-app](./07-cli-app) - Aplikasi CLI Sederhana
+- [07-error-handling](./07-error-handling) - Error Handling in go
+- [08-cli-app](./08-cli-app) - Aplikasi CLI Sederhana
+- [09-defer-panic-recover](./09-defer-panic-recover) - Explaining go routine
+- [10-command-line-args](./10-command-line-args) - Command line args Sederhana
 
 ### Hari 4 - Backend #2: REST API & Integration
 
-- [08-rest-api-intro](./08-rest-api-intro) - Pengenalan REST API
-- [09-gin-routing](./09-gin-routing) - Setup Gin dan Routing
-- [10-middleware](./10-middleware) - Middleware dan Error Handling
-- [11-crud-no-db](./11-crud-no-db) - CRUD API Tanpa Database
-- [12-database-gorm](./12-database-gorm) - Setup Database dengan GORM
-- [13-crud-with-db](./13-crud-with-db) - CRUD dengan Database
-- [14-jwt-auth](./14-jwt-auth) - Autentikasi JWT
-- [15-testing-docs](./15-testing-docs) - Testing dan Dokumentasi
-- [16-mini-project](./16-mini-project) - Mini Project Vue + Golang
+- [11-rest-api-intro](./11-rest-api-intro) - Pengenalan REST API
+- [12-gin-framework](./12-gin-framework) - Setup Gin dan Routing
+- [13-middleware](./13-middleware) - Middleware dan Error Handling
+- [14-crud-no-db](./14-crud-no-db) - CRUD API dengan Gin Tanpa Database
+- [15-database-gorm](./15-database-gorm) - Setup Database dengan GORM
+- [16-crud-with-db](./16-crud-with-db) - CRUD dengan Database + gorm
+- [17-jwt-auth](./17-jwt-auth) - generate token dan Autentikasi JWT
+- [18-testing-docs](./18-testing-docs) - Best practice Testing di go dan Dokumentasi
+- [19-swaggo](./18-swaggo) - Dokumentasi API
+- [20-mini-project](./20-mini-project) - Mini Project Todolist REST API Golang
+  the mini project plan
+  plan a full implementation golang todo rest api with tech stack
+- gorm pgsql
+- jwt auth
+- go gin http
+
+the endpoint api
+
+- users (management user and auth)
+- todo ( crud todo)
+- health ( system check health)
+
+the must concern
+
+- middleware
+- validation
+- error handling and response format json api spec
+- swaggo docs for swagger
+- docker deployment
+
+testing
+
+- testing auth
+- testing user management
+- testing todo management
 
 ## Cara Menggunakan
 
 Setiap folder berisi:
+
 - `README.md` - Penjelasan lengkap dalam Bahasa Indonesia
 - `main.go` - Kode demonstrasi
 - File pendukung lainnya sesuai kebutuhan
