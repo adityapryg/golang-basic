@@ -91,7 +91,7 @@ func main() {
 	addr := fmt.Sprintf("%s:%d", *host, *port)
 	fmt.Printf("\n🚀 Server running on http://%s\n", addr)
 	fmt.Println("📚 Docs: GET /api/v1/users")
-	fmt.Println("🔐 Auth: Authorization: Bearer secret-token\n")
+	fmt.Println("🔐 Auth: Authorization: Bearer secret-token")
 
 	r.Run(addr)
 }
