@@ -1,4 +1,4 @@
-# Golang Backend Training Demo
+# Golang Backend - Pemula sampai Mahir
 
 Repository ini berisi materi pembelajaran Golang Backend sesuai dengan rencana pembelajaran 2 hari.
 
