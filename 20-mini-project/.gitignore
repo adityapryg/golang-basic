@@ -1,0 +1,6 @@
+.env
+docs/docs.go
+docs/swagger.json
+docs/swagger.yaml
+*.log
+tmp/
