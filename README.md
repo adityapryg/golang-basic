@@ -24,7 +24,7 @@ Repository ini berisi materi pembelajaran Golang Backend sesuai dengan rencana p
 - [19-swaggo](./18-swaggo) - Dokumentasi API
 - [20-mini-project](./20-mini-project) - Mini Project Menggabungkan semua yang dipelajari, REST API Todolist GO (gogin, jwt auth, gorm)
 - [21-concurrency](./21-concurrency) - Penjelasan Goroutine, channel (buffered & unbuffered)
-- 
+
 ## Cara Menggunakan
 
 Setiap folder berisi:
