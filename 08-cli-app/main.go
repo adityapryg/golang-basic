@@ -4,22 +4,23 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 // Struct for Mahasiswa
 type Mahasiswa struct {
-	NIM    string
-	Nama   string
+	NIM     string
+	Nama    string
 	Jurusan string
-	IPK    float64
+	IPK     float64
 }
 
 // Sentinel errors
 var (
 	ErrNotFound      = fmt.Errorf("mahasiswa tidak ditemukan")
-	ErrAlreadyExists  = fmt.Errorf("mahasiswa sudah ada")
-	ErrInvalidInput   = fmt.Errorf("input tidak valid")
+	ErrAlreadyExists = fmt.Errorf("mahasiswa sudah ada")
+	ErrInvalidInput  = fmt.Errorf("input tidak valid")
 )
 
 // Custom ValidationError type
@@ -38,33 +39,33 @@ var daftarMahasiswa []Mahasiswa
 func main() {
 	scanner := bufio.NewScanner(os.Stdin)
 	for {
-	
-tampilkanMenu()
+
+		tampilkanMenu()
 		s := scanner.Scan()
 		if !s {
 			fmt.Println("Terjadi kesalahan input")
 			continue
 		}
 		option := strings.TrimSpace(scanner.Text())
-		
+
 		switch option {
 		case "1":
 			tambahMahasiswa(scanner)
 		case "2":
 			lihatSemuaMahasiswa()
 		case "3":
-			 cariMahasiswa(scanner)
+			cariMahasiswa(scanner)
 		case "4":
-			 updateIPK(scanner)
+			updateIPK(scanner)
 		case "5":
-			 hapusMahasiswa(scanner)
+			hapusMahasiswa(scanner)
 		case "6":
-			 tampilkanStatistik()
+			tampilkanStatistik()
 		case "7":
-			 fmt.Println("Keluar dari program...")
-			 return
+			fmt.Println("Keluar dari program...")
+			return
 		default:
-			 fmt.Println("Pilihan tidak valid. Silakan coba lagi.")
+			fmt.Println("Pilihan tidak valid. Silakan coba lagi.")
 		}
 	}
 }
@@ -87,6 +88,12 @@ func tambahMahasiswa(scanner *bufio.Scanner) {
 	scanner.Scan()
 	m.NIM = strings.TrimSpace(scanner.Text())
 
+	// Check if NIM already exists
+	if _, err := cariByNIM(m.NIM); err == nil {
+		fmt.Println(ErrAlreadyExists)
+		return
+	}
+
 	fmt.Print("Masukkan Nama: ")
 	scanner.Scan()
 	m.Nama = strings.TrimSpace(scanner.Text())
@@ -103,8 +110,8 @@ func tambahMahasiswa(scanner *bufio.Scanner) {
 		fmt.Println(err)
 		return
 	}
-	
-	if err := validasiMahasiswa(m.NIM, m.Nama, m.Jurusan, m.IPK); err != nil {
+
+	if err := validasiMahasiswa(m.NIM, m.Nama, m.Jurusan); err != nil {
 		fmt.Println(err)
 		return
 	}
@@ -125,13 +132,12 @@ func cariMahasiswa(scanner *bufio.Scanner) {
 	fmt.Print("Masukkan NIM yang dicari: ")
 	scanner.Scan()
 	nim := strings.TrimSpace(scanner.Text())
-	for _, m := range daftarMahasiswa {
-		if m.NIM == nim {
-			fmt.Printf("NIM: %s\nNama: %s\nJurusan: %s\nIPK: %.2f\n", m.NIM, m.Nama, m.Jurusan, m.IPK)
-			return
-		}
+	m, err := cariByNIM(nim)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
-	fmt.Println("❌ Mahasiswa tidak ditemukan")
+	fmt.Printf("NIM: %s\nNama: %s\nJurusan: %s\nIPK: %.2f\n", m.NIM, m.Nama, m.Jurusan, m.IPK)
 }
 
 func updateIPK(scanner *bufio.Scanner) {
@@ -139,22 +145,29 @@ func updateIPK(scanner *bufio.Scanner) {
 	scanner.Scan()
 	nim := strings.TrimSpace(scanner.Text())
 
-	for i, m := range daftarMahasiswa {
-		if m.NIM == nim {
-			fmt.Print("Masukkan IPK baru: ")
-			scanner.Scan()
-			ipkStr := strings.TrimSpace(scanner.Text())
-			var err error
-			if m.IPK, err = validasiIPK(ipkStr); err != nil {
-				fmt.Println(err)
-				return
-			}
-			daftarMahasiswa[i].IPK = m.IPK
+	_, err := cariByNIM(nim)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	fmt.Print("Masukkan IPK baru: ")
+	scanner.Scan()
+	ipkStr := strings.TrimSpace(scanner.Text())
+	newIPK, err := validasiIPK(ipkStr)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	// Find index to update
+	for i := range daftarMahasiswa {
+		if daftarMahasiswa[i].NIM == nim {
+			daftarMahasiswa[i].IPK = newIPK
 			fmt.Println("✓ IPK mahasiswa berhasil diupdate")
 			return
 		}
 	}
-	fmt.Println("❌ Mahasiswa tidak ditemukan")
 }
 
 func hapusMahasiswa(scanner *bufio.Scanner) {
@@ -162,21 +175,27 @@ func hapusMahasiswa(scanner *bufio.Scanner) {
 	scanner.Scan()
 	nim := strings.TrimSpace(scanner.Text())
 
-	for i, m := range daftarMahasiswa {
-		if m.NIM == nim {
-			var konfirmasi string
-			fmt.Print("Apakah Anda yakin ingin menghapus mahasiswa ini? (y/n): ")
-			scanner.Scan()
-			konfirmasi = strings.TrimSpace(scanner.Text())
-			if konfirmasi == "y" {
+	_, err := cariByNIM(nim)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	var konfirmasi string
+	fmt.Print("Apakah Anda yakin ingin menghapus mahasiswa ini? (y/n): ")
+	scanner.Scan()
+	konfirmasi = strings.TrimSpace(scanner.Text())
+
+	if konfirmasi == "y" {
+		// Find index and remove
+		for i, m := range daftarMahasiswa {
+			if m.NIM == nim {
 				daftarMahasiswa = append(daftarMahasiswa[:i], daftarMahasiswa[i+1:]...)
 				fmt.Println("✓ Mahasiswa berhasil dihapus")
 				return
 			}
-			return
 		}
 	}
-	fmt.Println("❌ Mahasiswa tidak ditemukan")
 }
 
 func tampilkanStatistik() {
@@ -214,7 +233,7 @@ func cariByNIM(nim string) (*Mahasiswa, error) {
 	return nil, ErrNotFound
 }
 
-func validasiMahasiswa(nim, nama, jurusan string, ipk float64) error {
+func validasiMahasiswa(nim, nama, jurusan string) error {
 	if nim == "" || nama == "" || jurusan == "" {
 		return &ValidationError{Field: "Input", Message: "semua field harus diisi"}
 	}
