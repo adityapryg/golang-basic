@@ -2,9 +2,12 @@ package main
 
 import (
 	"encoding/json"
-	"net/http"
-	"sync"
 	"flag"
+	"fmt"
+	"log"
+	"net/http"
+	"strconv"
+	"sync"
 )
 
 // User struct represents a user in the system
@@ -15,9 +18,9 @@ type User struct {
 }
 
 var (
-	users    = make(map[int]User)
-	nextID   = 1
-	usersMtx sync.RWMutex
+	users    = make(map[int]User) // In-memory storage: map dari ID ke User
+	nextID   = 1                  // Auto-increment ID untuk user baru
+	usersMtx sync.RWMutex         // Read-Write mutex untuk thread-safe access
 )
 
 // Seed data
@@ -117,19 +120,19 @@ func deleteUser(w http.ResponseWriter, r *http.Request) {
 
 // Main function
 func main() {
-	 // Command-line flags
-    port := flag.Int("port", 8080, "Server port")
-    host := flag.String("host", "localhost", "Server host")
-    flag.Parse()
-	
+	// Command-line flags
+	port := flag.Int("port", 8080, "Server port")
+	host := flag.String("host", "localhost", "Server host")
+	flag.Parse()
+
 	http.HandleFunc("/users", getUsers)
 	http.HandleFunc("/user", getUser)
 	http.HandleFunc("/user/create", createUser)
 	http.HandleFunc("/user/update", updateUser)
 	http.HandleFunc("/user/delete", deleteUser)
-	
+
 	// Start the server
 	addr := fmt.Sprintf("%s:%d", *host, *port)
-    fmt.Printf("Running on http://%s\n", addr)
-    log.Fatal(http.ListenAndServe(addr, nil))
+	fmt.Printf("Running on http://%s\n", addr)
+	log.Fatal(http.ListenAndServe(addr, nil))
 }
