@@ -6,6 +6,23 @@ Mini project ini adalah implementasi lengkap REST API untuk aplikasi Todo List m
 
 Project ini mengadopsi struktur yang terinspirasi dari production-ready Go projects dengan pemisahan layer yang jelas: **Repository → Service → Controller**, serta penggunaan DTO (Data Transfer Objects) untuk memisahkan representasi data internal dan eksternal.
 
+## 📚 Dokumentasi Lengkap
+
+**🎓 [Panduan Lengkap Recreate Project](docs/learn/README.md)**
+
+Dapatkan **panduan step-by-step yang sangat detail** untuk membuat ulang project ini dari nol. Panduan ini mencakup:
+
+- ✅ **17 file panduan terpisah** - Setiap tahap dijelaskan secara detail
+- ✅ **Literally step-by-step** - Setiap command, setiap file, setiap baris kode
+- ✅ **Checkbox untuk tracking progress** - Pantau kemajuan Anda
+- ✅ **Penjelasan mendalam** - Memahami "mengapa", bukan hanya "bagaimana"
+- ✅ **Troubleshooting tips** - Solusi untuk masalah umum
+- ✅ **Verification steps** - Pastikan setiap tahap berhasil
+
+**Mulai di sini:** [docs/learn/00-overview.md](docs/learn/00-overview.md)
+
+**Untuk AI Agents:** Lihat [.github/copilot-instructions.md](.github/copilot-instructions.md) untuk panduan arsitektur dan pattern.
+
 ## Fitur
 
 ### ✅ Autentikasi & Autorisasi
