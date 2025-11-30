@@ -49,6 +49,5 @@ cd 01-hello-world
 go run main.go
 ```
 
-## Lisensi
-
-Materi ini dibuat untuk keperluan pembelajaran internal.
+## Support
+[<img src="https://button.ibnux.net/trakteer/your-username.png" width="128">](https://trakteer.id/adityapryg)
