@@ -50,4 +50,4 @@ go run main.go
 ```
 
 ## Support
-[<img src="https://button.ibnux.net/trakteer/your-username.png" width="128">](https://trakteer.id/adityapryg)
+[<img src="https://button.ibnux.net/trakteer/adityapryg.png" width="128">](https://trakteer.id/adityapryg)
